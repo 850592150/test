@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  datasource:
+    username: demo
+    password: demo1234
+    url: jdbc:mysql://10.241.79.10:3306/atm_xzt?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  resources:
+    static-locations:  classpath:/static/
+      
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    static-path-pattern: /static/**  
+mybatis:
+   config-location: classpath:mybatis-config.xml  # mybatis配置文件所在路径
+   mapper-locations: classpath:mapping/*Mapper.xml
+   type-aliases-package: com.xzt.pojo
+   
+debug: true  
+   

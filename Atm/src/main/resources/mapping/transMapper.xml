@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xzt.dao.TransDao">
+    <insert id="insertTrans" useGeneratedKeys="true" keyProperty="transId" parameterType="com.xzt.pojo.Trans">
+ 	insert into trans(transId,transDate,cardId,transType,transMoney,remark,otherCardId)
+    values(#{transId},#{transDate},#{cardId},#{transType},#{transMoney},#{remark},#{otherCardId})
+	</insert>
+
+    <insert id="insertTransByRate"  parameterType="map">
+ 	insert into trans(transId,transDate,cardId,transType,transMoney,remark,otherCardId)
+    values(#{trans.transId},#{trans.transDate},#{trans.cardId},#{trans.transType},#{trans.transMoney} * #{rate},#{trans.remark},#{trans.otherCardId})
+	</insert>
+
+
+</mapper>

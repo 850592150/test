@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+<mapper namespace="com.xzt.dao.CardDao">
+    <select id="findCardByCardId" parameterType="java.lang.String" resultType="com.xzt.pojo.Card">
+     select cardId,openDate,balance,password,identityCard from card
+     where cardId = #{cardId}
+
+    
+    </select>
+
+    <insert id="insertCard" useGeneratedKeys="true" keyProperty="cardId" parameterType="com.xzt.pojo.Card">
+ 	insert into card(cardId,openDate,balance,password,identityCard)
+    values(#{cardId},#{openDate},#{balance},#{password},#{identityCard})
+	</insert>
+
+    <!--存款-->
+    <update id="addBalanceByCardId" parameterType="map">
+
+        update card set balance = balance + #{transMoney}
+        where cardId = #{cardId}
+
+    </update>
+
+    <!--取款-->
+    <update id="reduceBalanceByCardId" parameterType="map">
+
+        update card set balance = balance - #{transMoney}
+        where cardId = #{cardId}
+
+    </update>
+
+    <!--转账-->
+    <update id="transBalanceByCardId" parameterType="map">
+
+       update card as myCard,card as otherCard set myCard.balance = myCard.balance - #{transMoney},otherCard.balance = otherCard.balance + #{transMoney} where myCard.cardId = #{myCardId} and otherCard.cardId = #{otherCardId}
+
+    </update>
+
+    <update id="updateBalanceByRate" parameterType="java.math.BigDecimal" >
+    update card set balance = balance * (1 + #{rate})
+
+
+    </update>
+
+    <select id="findCardList"  resultType="com.xzt.pojo.Card">
+        select cardId,balance,openDate,password,identityCard from card
+
+
+    </select>
+
+
+
+</mapper>

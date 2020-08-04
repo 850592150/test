@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+<mapper namespace="com.xzt.dao.UserDao">
+   <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="map">
+  
+ insert into user(userName,identityCard,telephone,address)
+    values(#{userName},#{identityCard},#{telephone},#{address})
+</insert> 
+
+  <!-- 根据身份证查找用户信息 -->
+	<select id="findUserByIdentityCard" parameterType="String" resultType="com.xzt.pojo.User">
+			select userName,identityCard,telephone,address from user
+			where identityCard = #{identityCard}
+	</select>
+</mapper>
